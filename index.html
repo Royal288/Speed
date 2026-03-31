@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ENDER Speed Test</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #0f172a;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  text-align: center;
+}
+
+h1 {
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+.circle {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: conic-gradient(#7c3aed 0deg, #1e293b 0deg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  transition: 0.2s;
+}
+
+.inner {
+  width: 180px;
+  height: 180px;
+  background: #0f172a;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.speed {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.label {
+  font-size: 14px;
+  color: #aaa;
+}
+
+button {
+  margin-top: 25px;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 25px;
+  background: #7c3aed;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.stats {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+  width: 250px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.stat {
+  font-size: 14px;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+  <h1>🚀 ENDER Speed Test</h1>
+
+  <div class="circle" id="circle">
+    <div class="inner">
+      <div class="speed" id="speed">0</div>
+      <div class="label">Mbps</div>
+    </div>
+  </div>
+
+  <button onclick="startTest()">Start Test</button>
+
+  <div class="stats">
+    <div class="stat">Ping: <span id="ping">--</span> ms</div>
+    <div class="stat">Upload: <span id="upload">--</span> Mbps</div>
+  </div>
+</div>
+
+<script>
+let circle = document.getElementById("circle");
+let speedText = document.getElementById("speed");
+
+function animateSpeed(target) {
+  let speed = 0;
+
+  let interval = setInterval(() => {
+    speed += Math.random() * 2;
+
+    if (speed >= target) {
+      speed = target;
+      clearInterval(interval);
+    }
+
+    speedText.innerText = speed.toFixed(2);
+
+    let deg = (speed / 100) * 360;
+    circle.style.background = `conic-gradient(#7c3aed ${deg}deg, #1e293b ${deg}deg)`;
+
+  }, 50);
+}
+
+function startTest() {
+  speedText.innerText = "0";
+  document.getElementById("ping").innerText = "...";
+  document.getElementById("upload").innerText = "...";
+
+  let download = (Math.random() * 20 + 5).toFixed(2);
+  let upload = (Math.random() * 10 + 2).toFixed(2);
+  let ping = Math.floor(Math.random() * 40 + 10);
+
+  animateSpeed(download);
+
+  setTimeout(() => {
+    document.getElementById("ping").innerText = ping;
+  }, 1500);
+
+  setTimeout(() => {
+    document.getElementById("upload").innerText = upload;
+  }, 3000);
+}
+</script>
+
+</body>
+  </html>
